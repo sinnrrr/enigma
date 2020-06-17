@@ -1,20 +1,24 @@
 {
   "name": "enigma",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "My phenomenal Nuxt.js project",
+  "author": "Dmytro",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "generate": "nuxt-ts generate",
+    "start": "nuxt-ts start"
   },
   "dependencies": {
-    "next": "9.4.4",
-    "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "nuxt": "^2.0.0",
+    "@nuxt/typescript-runtime": "^0.4.0",
+    "vuesax": "^4.0.1-alpha.8",
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/pwa": "^3.0.0-0",
+    "@nuxtjs/dotenv": "^1.4.0"
   },
   "devDependencies": {
-    "@types/node": "^14.0.13",
-    "@types/react": "^16.9.37",
-    "typescript": "^3.9.5"
+    "@nuxt/typescript-build": "^0.6.0"
   }
 }
