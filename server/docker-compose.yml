@@ -1,6 +1,6 @@
 version: '3'
 services:
-  mysql:
+  db:
     image: mysql:8.0
     volumes:
       - mysqldata:/var/lib/mysql
@@ -10,6 +10,18 @@ services:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - 3306:3306
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    depends_on:
+      - db
+    environment:
+      - PMA_ARBITARY=1
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - /sessions
 volumes:
   mysqldata:
     driver: local

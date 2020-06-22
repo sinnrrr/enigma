@@ -1,6 +1,9 @@
 package main
 
 import (
+	"./config"
+	"./datastore"
+	"./graphql"
 	"./handler"
 
 	"log"
@@ -10,14 +13,36 @@ import (
 )
 
 func main() {
+	// yaml config parsing
+	yamlConfig := config.Parse()
+	routerConfig := yamlConfig.Router
+
+	// database connection
+	db, err := datastore.NewDB()
+	logFatal(err)
+
+	db.LogMode(true)
+	defer db.Close()
+
+	// router configuration
 	e := echo.New()
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
 	e.GET("/", handler.Welcome())
+	e.GET("/users", handler.GetUsers(db))
 
-	if err := e.Start(":3000"); err != nil {
-		log.Fatalln(err)
+	h, err := graphql.NewHandler(db)
+	logFatal(err)
+	e.POST("/graphql", echo.WrapHandler(h))
+	
+	err = e.Start(":" + routerConfig.Port)
+	logFatal(err)
+}
+
+func logFatal(err error) {
+	if err != nil {
+		log.Fatal(err)
 	}
 }
