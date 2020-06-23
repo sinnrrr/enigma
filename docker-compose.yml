@@ -25,13 +25,29 @@ services:
       - /sessions
   nginx:
     image: nginx
+<<<<<<< Updated upstream
+=======
+    build: 
+      context: ./nginx
+>>>>>>> Stashed changes
     container_name: nginx
     ports:
       - 80:80
       - 443:443
+<<<<<<< Updated upstream
     # networks: 
     #   static-network:
     #     ipv4_address: 172.20.128.2
+=======
+    volumes: 
+      - ./app:/var/www/:ro
+  golang:
+    build:
+      context: ./golang
+    depends_on: 
+      - nginx
+      - db
+>>>>>>> Stashed changes
 volumes:
   mysqldata:
     driver: local
