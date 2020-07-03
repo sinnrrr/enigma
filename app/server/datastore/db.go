@@ -1,7 +1,7 @@
 package datastore
 
 import (
-	"../config"
+	"github.com/sinnrrr/enigma/config"
 
 	"github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"

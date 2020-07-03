@@ -33,12 +33,12 @@ services:
       - 443:443
     volumes: 
       - ./app:/var/www/:ro
-  # golang:
-  #   build:
-  #     context: ./golang
-  #   depends_on: 
-  #     - nginx
-  #     - db
+  golang:
+    build:
+      context: ./app/server
+    depends_on: 
+      - nginx
+      - db
 volumes:
   mysqldata:
     driver: local
