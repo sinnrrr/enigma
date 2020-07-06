@@ -4,6 +4,8 @@ import (
 	"io/ioutil"
 	"path/filepath"
 
+	"log"
+
 	"gopkg.in/yaml.v2"
 )
 
@@ -31,7 +33,7 @@ func Parse() YamlConfig {
 	yamlFile, err := ioutil.ReadFile(fileName)
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err, "\nReading file failed")
 	}
 
 	var yamlConfig YamlConfig
@@ -39,7 +41,7 @@ func Parse() YamlConfig {
 	err = yaml.Unmarshal(yamlFile, &yamlConfig)
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err, "\nParsing file failed")
 	}
 
 	return yamlConfig

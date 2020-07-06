@@ -1,10 +1,10 @@
 package main
 
 import (
-	"./config"
-	"./datastore"
-	"./graphql"
-	"./handler"
+	"github.com/sinnrrr/enigma/config"
+	"github.com/sinnrrr/enigma/datastore"
+	"github.com/sinnrrr/enigma/graphql"
+	"github.com/sinnrrr/enigma/handler"
 
 	"log"
 
@@ -17,28 +17,28 @@ func main() {
 	yamlConfig := config.Parse()
 	routerConfig := yamlConfig.Router
 
-	// database connection
-	db, err := datastore.NewDB()
-	logFatal(err)
-
-	db.LogMode(true)
-	defer db.Close()
-
 	// router configuration
 	e := echo.New()
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
-
-	e.GET("/", handler.Welcome())
-	e.GET("/users", handler.GetUsers(db))
-
-	h, err := graphql.NewHandler(db)
-	logFatal(err)
-	e.POST("/graphql", echo.WrapHandler(h))
 	
-	err = e.Start(":" + routerConfig.Port)
-	logFatal(err)
+	for db, err := datastore.NewDB(); err != nil; {
+		db.LogMode(true)
+		defer db.Close()
+
+		h, err := graphql.NewHandler(db)
+		logFatal(err)
+
+		e.GET("/", handler.Welcome())
+		e.GET("/users", handler.GetUsers(db))
+		e.GET("/posts", handler.GetPosts(db))
+
+		e.POST("/graphql", echo.WrapHandler(h))
+
+		err = e.Start(":" + routerConfig.Port)
+		logFatal(err)
+	}
 }
 
 func logFatal(err error) {

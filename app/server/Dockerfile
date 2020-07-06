@@ -1,13 +1,7 @@
 FROM golang
 
-# Set necessary environmet variables needed for our image
-ENV GO111MODULE=on \
-    CGO_ENABLED=0 \
-    GOOS=linux \
-    GOARCH=amd64
-
 # Move to working directory /build
-WORKDIR /var/www/server
+WORKDIR /build
 
 # Copy and download dependency using go mod
 COPY go.mod .
@@ -20,6 +14,9 @@ COPY . .
 # Build the application
 RUN go build -o main .
 
+# Copy configuration file
+COPY /config/main.yaml /dist/config/main.yaml
+
 # Move to /dist directory as the place for resulting binary folder
 WORKDIR /dist
 
@@ -27,7 +24,7 @@ WORKDIR /dist
 RUN cp /build/main .
 
 # Export necessary port
-EXPOSE 3000
+EXPOSE 8002
 
 # Command to run when starting the container
 CMD ["/dist/main"]
