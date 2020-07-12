@@ -12,8 +12,8 @@ import (
 var post = graphql.NewObject(
 	graphql.ObjectConfig{
 		Name: "Post",
-		Description: "Posts data"
-		Fields: grapghql.Fields{
+		Description: "Posts data",
+		Fields: graphql.Fields{
 			"id": &graphql.Field{Type: graphql.ID},
 			"owner_id": &graphql.Field{Type: graphql.ID},
 			"category": &graphql.Field{Type: graphql.String},
@@ -27,12 +27,13 @@ var post = graphql.NewObject(
 			"updatedAt": &graphql.Field{Type: graphql.DateTime},
 			"deletedAt": &graphql.Field{Type: graphql.DateTime},
 		},
-	}
+	},
 )
 
+/*NewPosts function*/
 func NewPosts(db *gorm.DB) *graphql.Field {
 	return &graphql.Field{
-		Description: "post"
+		Description: "post",
 		Type: graphql.NewList(post),
 		Resolve: func(p graphql.ResolveParams) (i interface{}, e error) {
 			var u[]*model.Post
@@ -41,6 +42,6 @@ func NewPosts(db *gorm.DB) *graphql.Field {
 			}
 
 			return u, nil
-		}
+		},
 	}
 }

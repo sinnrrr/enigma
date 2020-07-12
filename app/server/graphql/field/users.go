@@ -26,6 +26,7 @@ var user = graphql.NewObject(
 	},
 )
 
+/*NewUsers function*/
 func NewUsers(db *gorm.DB) *graphql.Field {
 	return &graphql.Field{
 		Description: "user",

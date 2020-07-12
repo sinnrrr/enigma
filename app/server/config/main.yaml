@@ -4,7 +4,7 @@ database:
     host: db
     port: 3306
     user: root
-    dbname: enigma
+    dbname: enigma_go
     password: root
     protocol: tcp
 router:

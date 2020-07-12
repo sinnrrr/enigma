@@ -9,8 +9,8 @@ type Post struct {
 	Category    string    `json:"category"`
 	Title       string    `json:"title"`
 	Description string    `json:"description"`
-	Latitude    decimal   `json:"lat"`
-	Longitude   decimal   `json:"lng"`
+	Latitude    int64     `json:"lat"`
+	Longitude   int64     `json:"lng"`
 	Status      string    `json:"status"`
 	Reward      string    `json:"reward"`
 	CreatedAt   time.Time `json:"created_at"`
