@@ -20,25 +20,31 @@ func main() {
 	// router configuration
 	e := echo.New()
 
+	// router middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
+
+	// setting up connection to db
+	db, err := datastore.NewDB()
+	logFatal(err)
+
+	// enabling logging
+	db.LogMode(true)
+	defer db.Close()
+
+	// creating new instance of grphql handler
+	h, err := graphql.NewHandler(db)
+	logFatal(err)
 	
-	for db, err := datastore.NewDB(); err != nil; {
-		db.LogMode(true)
-		defer db.Close()
+	// routes
+	e.GET("/", handler.Welcome())
+	e.GET("/users", handler.GetUsers(db))
+	e.GET("/posts", handler.GetPosts(db))
+	e.POST("/graphql", echo.WrapHandler(h))
 
-		h, err := graphql.NewHandler(db)
-		logFatal(err)
-
-		e.GET("/", handler.Welcome())
-		e.GET("/users", handler.GetUsers(db))
-		e.GET("/posts", handler.GetPosts(db))
-
-		e.POST("/graphql", echo.WrapHandler(h))
-
-		err = e.Start(":" + routerConfig.Port)
-		logFatal(err)
-	}
+	// starting router
+	err = e.Start(":" + routerConfig.Port)
+	logFatal(err)
 }
 
 func logFatal(err error) {
