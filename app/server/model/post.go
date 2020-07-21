@@ -1,10 +1,10 @@
 package model
 
-import "time"
+import "github.com/jinzhu/gorm"
 
 /*Post struct*/
 type Post struct {
-	ID          uint      `gorm:"primary_key" json:"id"`
+	gorm.Model
 	OwnerID     uint      `json:"owner_id"`
 	Category    string    `json:"category"`
 	Title       string    `json:"title"`
@@ -13,9 +13,6 @@ type Post struct {
 	Longitude   int64     `json:"lng"`
 	Status      string    `json:"status"`
 	Reward      string    `json:"reward"`
-	CreatedAt   time.Time `json:"created_at"`
-	UpdatedAt   time.Time `json:"updated_at"`
-	DeletedAt   time.Time `json:"deleted_at"`
 }
 
 /*TableName function*/
