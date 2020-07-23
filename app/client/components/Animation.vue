@@ -1,7 +1,7 @@
 <template>
   <section class="animation">
     <div class="block"></div>
-    <div class="logo">
+    <div class="logo hoverable">
       <span>Enigma</span>
       <p>Lost and found <br> of the future</p>
     </div>

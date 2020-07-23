@@ -5,8 +5,11 @@ import (
 	"github.com/sinnrrr/enigma/datastore"
 	"github.com/sinnrrr/enigma/graphql"
 	"github.com/sinnrrr/enigma/handler"
+	// "github.com/sinnrrr/enigma/model"
 
 	"log"
+
+	// "github.com/qor/admin"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -32,7 +35,12 @@ func main() {
 	db.LogMode(true)
 	defer db.Close()
 
-	// creating new instance of grphql handler
+	// Admin := admin.New(&admin.AdminConfig{DB: db})
+
+	// Admin.AddResource(&model.User{})
+	// Admin.AddResource(&model.Post{})
+
+	// creating new instance of graphql handler
 	h, err := graphql.NewHandler(db)
 	logFatal(err)
 	
@@ -42,9 +50,13 @@ func main() {
 	e.GET("/posts", handler.GetPosts(db))
 	e.POST("/graphql", echo.WrapHandler(h))
 
+	// Handler
+	// adminHandler := echo.WrapHandler(Admin.NewServeMux("/admin"))
+	// e.GET("/admin", adminHandler)
+	// e.Any("/admin/*", adminHandler)
+
 	// starting router
-	err = e.Start(":" + routerConfig.Port)
-	logFatal(err)
+	e.Logger.Fatal(e.Start(":" + routerConfig.Port))
 }
 
 func logFatal(err error) {

@@ -28,7 +28,7 @@
     },
     mounted() {
       setTimeout(() => {
-        document.getElementsByClassName('animation')[0].remove()
+        document.querySelector('.animation').remove()
         this.showAnimation = false
       }, 3500)
     },

@@ -10,7 +10,7 @@
     name: "language",
     transition(to, from) {
       if (to.name === "language") {
-        return {name: 'slide-to-right', mode: 'default'}
+        return {name: 'slide-to-right'}
       } else {
         return to.params.animation
       }

@@ -62,6 +62,7 @@
     max-width: 600px;
     max-height: 60vh;
     margin-bottom: 1rem;
+    -webkit-user-drag: none;
   }
 
   @media screen and (max-width: 992px) {

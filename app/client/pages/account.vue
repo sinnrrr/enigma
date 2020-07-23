@@ -8,7 +8,7 @@
     name: "account",
     transition(to, from) {
       if (to.name === "account") {
-        return {name: 'slide-to-left', mode: 'default'}
+        return {name: 'slide-to-left'}
       } else {
         return to.params.animation
       }

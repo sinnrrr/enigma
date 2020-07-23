@@ -9,7 +9,7 @@
     name: "about",
     transition(to, from) {
       if (to.name === "about") {
-        return {name: 'slide-to-bottom', mode: 'default'}
+        return {name: 'slide-to-bottom'}
       } else {
         return to.params.animation
       }

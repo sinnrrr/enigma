@@ -10,7 +10,7 @@
     name: "office",
     transition(to, from) {
       if (to.name === "office") {
-        return {name: 'slide-to-top', mode: 'default'}
+        return {name: 'slide-to-top'}
       } else {
         return to.params.animation
       }
