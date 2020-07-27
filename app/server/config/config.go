@@ -21,6 +21,14 @@ type YamlConfig struct {
 			Pass     string `yaml:"password"`
 			Protocol string `yaml:"protocol"`
 		}
+
+		Postgres struct {
+			Host     string `yaml:"host"`
+			Port     string `yaml:"port"`
+			User     string `yaml:"user"`
+			DbName   string `yaml:"dbname"`
+			Pass     string `yaml:"password"`
+		}
 	}
 
 	Router struct {

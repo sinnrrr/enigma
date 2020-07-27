@@ -1,30 +1,19 @@
 package datastore
 
 import (
-	"github.com/sinnrrr/enigma/config"
-	"github.com/go-sql-driver/mysql"
+	"fmt"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"github.com/sinnrrr/enigma/config"
 )
 
 /*NewDB method*/
 func NewDB() (*gorm.DB, error) {
 	yamlConfig := config.Parse()
-	dbConfig := yamlConfig.Database
-	mySQLConfig := dbConfig.MySql
+	postgres := yamlConfig.Database.Postgres
 
-	DBMS := dbConfig.Default
+	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		postgres.Host, postgres.Port, postgres.User, postgres.Pass, postgres.DbName)
 
-	sqlConfig := &mysql.Config{
-		User: mySQLConfig.User,
-		Passwd: mySQLConfig.Pass,
-		Net: mySQLConfig.Protocol,
-		Addr: mySQLConfig.Host + ":" + mySQLConfig.Port,
-		DBName: mySQLConfig.DbName,
-		AllowNativePasswords: true,
-		Params: map[string]string{
-			"parseTime": "true",
-		},
-	}
-
-	return gorm.Open(DBMS, sqlConfig.FormatDSN())
+	return gorm.Open("postgres", psqlInfo)
 }

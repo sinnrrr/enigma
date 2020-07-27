@@ -1,3 +1,3 @@
 development:
-  driver: mysql
-  open: root:root@tcp(localhost:3306)/enigma
+  driver: postgres
+  open: user=root pass=root dbname=enigma protocol=tcp
