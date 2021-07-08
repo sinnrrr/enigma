@@ -1,3 +1,0 @@
-development:
-  driver: postgres
-  open: user=root pass=root dbname=enigma protocol=tcp
